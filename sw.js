@@ -1,4 +1,4 @@
-;
+﻿;
 //asignar un nombre y versión al cache
 const CACHE_NAME = 'v1_cache_page_appMarvel',
   urlsToCache = [
@@ -53,7 +53,7 @@ const CACHE_NAME = 'v1_cache_page_appMarvel',
           return res
         }
         //recuperar de la petición a la url
-        return fetch(e.request)
+        //return fetch(e.request)
       })
   )
 
