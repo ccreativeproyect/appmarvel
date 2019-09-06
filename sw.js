@@ -1,12 +1,10 @@
-﻿;
-
-
+;
 //asignar un nombre y versión al cache
+let urlTotal;
 const CACHE_NAME = 'v1_cache_page_appMarvel',
   urlsToCache = [
     './',
     './css/style.css',
-    './js/script.js',
     './js/main.js',
     './img/marvel-logo.png'
   ]
@@ -48,20 +46,17 @@ const CACHE_NAME = 'v1_cache_page_appMarvel',
 
      //Responder ya sea con el objeto en caché o continuar y buscar la url real
   e.respondWith(
-    caches.match(e.request.url)
+    caches.match(e.request)
       .then(res => {
-       console.log(res);
-	console.log(e.request);
         if (res) {
           //recuperar del cache
-console.log(res);
           return res
         }
-	console.log(res);
-console.log(e.request);
-	console.log(e.request.url);
+        // console.log(e.request);
+        // console.log(e.request.url);
+        // console.log(urlTotal);
         //recuperar de la petición a la url
-        return fetch(e.request.url)
+        return fetch(e.request)
       })
   )
 
