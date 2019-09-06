@@ -63,10 +63,14 @@ const CACHE_NAME = 'v1_cache_page_appMarvel',
     caches.match(e.request)
       .then(res => {
        console.log(res);
+	console.log(e.request);
         if (res) {
           //recuperar del cache
+console.log(res);
           return res
         }
+	console.log(res);
+	console.log(e.request);
         //recuperar de la petición a la url
         return fetch(res.url)
       })
