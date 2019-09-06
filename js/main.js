@@ -1,3 +1,9 @@
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Registro de SW exitoso', reg))
+      .catch(err => console.warn('Error al tratar de registrar el sw', err))
+}
+
 const btn = document.getElementById('btnEject');
 const btnImageContainer = document.getElementById('container_imgbtn');
 const btnload = document.getElementById('loading');
@@ -18,6 +24,7 @@ let msj;
 let btn_success;
 let btn_noSuccess;
 let count;
+let urlChange;
 
 const hash = 'd8c654b1434acc7a69ba9127b61eb186';
 const apiKey = '666d359706b3037e653e838e0e52e226';
@@ -442,6 +449,10 @@ const draw = datita => {
     changeNameBtn1(randomCharacterModif,2);
 
     datita.forEach(comic => {
+        urlChange = comic.thumbnail.path.replace('http','https');
+        console.log(comic.thumbnail.path);
+        console.log(urlChange);
+        console.log(`${urlChange}/portrait_incredible.${comic.thumbnail.extension}`);
         const comicHTML = `
         <div class="grid-container">
             <div class="grid-item">
@@ -450,7 +461,7 @@ const draw = datita => {
                 </div>
             </div>
             <div class="grid-item">
-                <img class="img_person" src="${comic.thumbnail.path}/portrait_incredible.${comic.thumbnail.extension}" alt="${comic.name}">
+                <img class="img_person" src="${urlChange}/portrait_incredible.${comic.thumbnail.extension}" alt="${comic.name}">
             </div>
             `
         const comicHTMLPart = HtmlPart(numberRandomPosition);
