@@ -1,4 +1,6 @@
 ﻿;
+
+
 //asignar un nombre y versión al cache
 const CACHE_NAME = 'v1_cache_page_appMarvel',
   urlsToCache = [
@@ -6,6 +8,18 @@ const CACHE_NAME = 'v1_cache_page_appMarvel',
     './css/style.css',
     './js/script.js',
     './js/main.js',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=captain%20marvel&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=thanos&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=black%20panther&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=spider-man&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=iron%20man&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=hulk&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=captain%20america&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=black%20widow&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=hawkeye&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=thor&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=aegis&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
+    'https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=ant-man&limit=1&apikey=666d359706b3037e653e838e0e52e226&hash=d8c654b1434acc7a69ba9127b61eb186',
     './img/marvel-logo.png'
   ]
 
@@ -53,7 +67,7 @@ const CACHE_NAME = 'v1_cache_page_appMarvel',
           return res
         }
         //recuperar de la petición a la url
-        //return fetch(e.request)
+        return fetch(e.request)
       })
   )
 
