@@ -1,10 +1,10 @@
 ;
 //asignar un nombre y versión al cache
+let urlTotal;
 const CACHE_NAME = 'v1_cache_page_appMarvel',
   urlsToCache = [
     './',
     './css/style.css',
-    './js/script.js',
     './js/main.js',
     './img/marvel-logo.png'
   ]
@@ -52,6 +52,9 @@ const CACHE_NAME = 'v1_cache_page_appMarvel',
           //recuperar del cache
           return res
         }
+        // console.log(e.request);
+        // console.log(e.request.url);
+        // console.log(urlTotal);
         //recuperar de la petición a la url
         return fetch(e.request)
       })

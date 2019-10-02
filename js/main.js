@@ -1,8 +1,14 @@
-const btn = document.getElementById('btnEject');
-const btnImageContainer = document.getElementById('container_imgbtn');
-const btnload = document.getElementById('loading');
-const div_container = document.getElementById('myContent');
-const arrayCharacter = ['captain%20marvel','thanos','black%20panther','spider-man','iron%20man','hulk','captain%20america','black%20widow','hawkeye','thor','aegis','ant-man'];
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Registro de SW exitoso', reg))
+      .catch(err => console.warn('Error al tratar de registrar el sw', err))
+}
+
+const btnStarted = document.getElementById('btnGetStart');
+const mainContainerImg = document.getElementById('container_img-background');
+const circleLoader = document.getElementById('loading');
+const divContent = document.getElementById('myContent');
+const originalCharacterArray = ['captain%20marvel','thanos','black%20panther','spider-man','iron%20man','hulk','captain%20america','black%20widow','hawkeye','thor','aegis','ant-man'];
 const arrayCharacterText = ['captain_marvel', 'thanos', 'black_panther', 'spider-man','iron_man', 'hulk', 'captain_america', 'black_widow','hawkeye','thor','aegis','ant-man'];
 
 let randomCharacter;
@@ -18,26 +24,27 @@ let msj;
 let btn_success;
 let btn_noSuccess;
 let count;
+let urlChange;
 
 const hash = 'd8c654b1434acc7a69ba9127b61eb186';
 const apiKey = '666d359706b3037e653e838e0e52e226';
 
-btnload.style.display = 'none';
-btn.style.display = 'block';
-btnImageContainer.style.display = 'block';
+circleLoader.style.display = 'none';
+btnStarted.style.display = 'block';
+mainContainerImg.style.display = 'block';
 
 
-const btnStart = () => {
-    btn.style.display = 'none';
-    btnImageContainer.style.display = 'none';
-    btnload.style.display = 'block';
-    numberRandom = Math.round(Math.random()*(arrayCharacter.length-1))
-    randomCharacter = arrayCharacter[numberRandom];
+const Started = () => {
+    btnStarted.style.display = 'none';
+    mainContainerImg.style.display = 'none';
+    circleLoader.style.display = 'block';
+    numberRandom = Math.round(Math.random()*(originalCharacterArray.length-1))
+    randomCharacter = originalCharacterArray[numberRandom];
     loadComics(randomCharacter);
 }
 
-btn.addEventListener('click', e => {
-    btnStart();
+btnStarted.addEventListener('click', e => {
+    Started();
 })
 
 
@@ -55,13 +62,22 @@ const loadComics = async (nameCharacter) => {
             break;
     }
 
-    if(arrayCharacter[numberRandom] == randomCharacter){
-        arrayCharacter.splice(arrayCharacter.indexOf(randomCharacter),1);
+    if(originalCharacterArray[numberRandom] == randomCharacter){
+        originalCharacterArray.splice(originalCharacterArray.indexOf(randomCharacter),1);
     }
 
 }
 
 const changeNameBtn1 = (btn1, count) => {
+
+    // BTN1 === BTN1
+    if(btn1 == arrayCharacterText[numberRandom]){
+        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) <= 5){
+            numberRandom = arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) + count;
+        }else{
+            numberRandom = arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) - count;
+        }
+    }
 
     // BTN 1 === BTN 2
     if(btn1 == arrayCharacterText[numberRandomText]){
@@ -187,7 +203,7 @@ const changeNameBtn4 = (btn4, count) => {
 
 const changeAndEnd = () => {
 
-    if(arrayCharacter.length > 0) {
+    if(originalCharacterArray.length > 0) {
         if(randomCharacter.includes('%20')){
             randomCharacterModif = randomCharacter.replace("%20","_");
         }else{
@@ -199,7 +215,7 @@ const changeAndEnd = () => {
 
 const drawFinalComparation = () => {
 
-    div_container.innerHTML = '';
+    divContent.innerHTML = '';
     drawPreFinal(score);
 
     btn_success = document.getElementById('btn_success');
@@ -275,7 +291,7 @@ const HtmlPart = (opc) => {
                 </div>
                 <div class="grid-item">
                     <div class="grid-item-textImg">
-                        <h4 class="restanteText">Remaining images: ${arrayCharacter.length}</a>
+                        <h4 class="restanteText">Remaining images: ${originalCharacterArray.length}</a>
                     </div>
                 </div>
             </div>
@@ -298,7 +314,7 @@ const HtmlPart = (opc) => {
                 </div>
                 <div class="grid-item">
                     <div class="grid-item-textImg">
-                        <h4 class="restanteText">Remaining images: ${arrayCharacter.length}</a>
+                        <h4 class="restanteText">Remaining images: ${originalCharacterArray.length}</a>
                     </div>
                 </div>
             </div>
@@ -321,7 +337,7 @@ const HtmlPart = (opc) => {
                 </div>
                 <div class="grid-item">
                     <div class="grid-item-textImg">
-                        <h4 class="restanteText">Remaining images: ${arrayCharacter.length}</a>
+                        <h4 class="restanteText">Remaining images: ${originalCharacterArray.length}</a>
                     </div>
                 </div>
             </div>
@@ -344,7 +360,7 @@ const HtmlPart = (opc) => {
                 </div>
                 <div class="grid-item">
                     <div class="grid-item-textImg">
-                        <h4 class="restanteText">Remaining images: ${arrayCharacter.length}</a>
+                        <h4 class="restanteText">Remaining images: ${originalCharacterArray.length}</a>
                     </div>
                 </div>
             </div>
@@ -384,12 +400,12 @@ const drawPreFinal = (scoreFinal) => {
     `
 
     containerPreFinal.insertAdjacentHTML('beforeend', drawPreHTML);
-    div_container.appendChild(containerPreFinal); 
+    divContent.appendChild(containerPreFinal); 
 }
 
 const drawpageFooter = (scoreFinal) => {
 
-    div_container.innerHTML = '';
+    divContent.innerHTML = '';
 
     const containerFinal = document.createElement('div');
 
@@ -409,14 +425,14 @@ const drawpageFooter = (scoreFinal) => {
     </div>
     `
     containerFinal.insertAdjacentHTML('beforeend', drawFinalHTML);
-    div_container.appendChild(containerFinal); 
+    divContent.appendChild(containerFinal); 
    
 }
 
 const draw = datita => {
 
-    btnload.style.display = 'none';
-    div_container.innerHTML = '';
+    circleLoader.style.display = 'none';
+    divContent.innerHTML = '';
 
     const container = document.createElement('div');
 
@@ -442,6 +458,10 @@ const draw = datita => {
     changeNameBtn1(randomCharacterModif,2);
 
     datita.forEach(comic => {
+        urlChange = comic.thumbnail.path.replace('http','https');
+        console.log(comic.thumbnail.path);
+        console.log(urlChange);
+        console.log(`${urlChange}/portrait_incredible.${comic.thumbnail.extension}`);
         const comicHTML = `
         <div class="grid-container">
             <div class="grid-item">
@@ -450,7 +470,7 @@ const draw = datita => {
                 </div>
             </div>
             <div class="grid-item">
-                <img class="img_person" src="${comic.thumbnail.path}/portrait_incredible.${comic.thumbnail.extension}" alt="${comic.name}">
+                <img class="img_person" src="${urlChange}/portrait_incredible.${comic.thumbnail.extension}" alt="${comic.name}">
             </div>
             `
         const comicHTMLPart = HtmlPart(numberRandomPosition);
@@ -458,7 +478,7 @@ const draw = datita => {
         container.insertAdjacentHTML('beforeend', comicHTML + comicHTMLPart) 
     });
 
-    div_container.appendChild(container);
+    divContent.appendChild(container);
 
     const btnDone = document.getElementById('btnDone');
     const btnFail1 = document.getElementById('btnFail1');
@@ -470,13 +490,13 @@ const draw = datita => {
             comp = false;
             score += 1;
             btnDone.style.background = 'rgb(27, 107, 47)';
-            if(arrayCharacter.length == 0 ){
+            if(originalCharacterArray.length == 0 ){
                 setTimeout( () => {
                     drawFinalComparation();
                 }, 1000);
             }else{
                 setTimeout( () => {
-                    btnStart();
+                    Started();
                     comp = true;
                 },1000);
             }
@@ -489,13 +509,13 @@ const draw = datita => {
             score += 0;
             btnDone.style.background = 'rgb(27, 107, 47)';
             btnFail1.style.background = 'rgb(153, 30, 30)';
-            if(arrayCharacter.length == 0 ){
+            if(originalCharacterArray.length == 0 ){
                 setTimeout( () => {
                     drawFinalComparation();
                 }, 1000);
             }else{
                 setTimeout( () => {
-                    btnStart();
+                    Started();
                     comp = true;
                 },1000);
             }
@@ -508,13 +528,13 @@ const draw = datita => {
             score += 0;
             btnDone.style.background = 'rgb(27, 107, 47)';
             btnFail2.style.background = 'rgb(153, 30, 30)';
-            if(arrayCharacter.length == 0 ){
+            if(originalCharacterArray.length == 0 ){
                 setTimeout( () => {
                     drawFinalComparation();
                 }, 1000);
             }else{
                 setTimeout( () => {
-                    btnStart();
+                    Started();
                     comp = true;
                 },1000);
             }
@@ -527,13 +547,13 @@ const draw = datita => {
             score += 0;
             btnDone.style.background = 'rgb(27, 107, 47)';
             btnFail3.style.background = 'rgb(153, 30, 30)';
-            if(arrayCharacter.length == 0 ){
+            if(originalCharacterArray.length == 0 ){
                 setTimeout( () => {
                     drawFinalComparation();
                 }, 1000);
             }else{
                 setTimeout( () => {
-                    btnStart();
+                    Started();
                     comp = true;
                 },1000);
             }
