@@ -71,13 +71,13 @@ const loadComics = async (nameCharacter) => {
 const changeNameBtn1 = (btn1, count) => {
 
     // BTN1 === BTN1
-    if(btn1 == arrayCharacterText[numberRandom]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) <= 5){
-            numberRandom = arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) + count;
-        }else{
-            numberRandom = arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) - count;
-        }
-    }
+    // if(btn1 == arrayCharacterText[numberRandom]){
+    //     if(arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) <= 5){
+    //         numberRandom = arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) + count;
+    //     }else{
+    //         numberRandom = arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) - count;
+    //     }
+    // }
 
     // BTN 1 === BTN 2
     if(btn1 == arrayCharacterText[numberRandomText]){
