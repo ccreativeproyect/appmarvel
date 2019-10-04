@@ -14,6 +14,7 @@ const arrayCharacterText = ['captain_marvel', 'thanos', 'black_panther', 'spider
 let randomCharacter;
 let randomCharacterModif;
 let numberRandom;
+let numberRandomText;
 let numberRandomText1;
 let numberRandomText2;
 let numberRandomPosition;
@@ -23,8 +24,11 @@ let comp = true;
 let msj;
 let btn_success;
 let btn_noSuccess;
-let count;
+let cont;
 let urlChange;
+
+let btnIdDone, doneText, btnIdFirstFail, firstText, btnIdSecondFail, secondText, btnIdThridFail, thirdText;
+let firstArray, iArr, arrF, indFirstArr, arrS, indSecondArr, arrT, indThirdArr, count;
 
 const hash = 'd8c654b1434acc7a69ba9127b61eb186';
 const apiKey = '666d359706b3037e653e838e0e52e226';
@@ -68,16 +72,8 @@ const loadComics = async (nameCharacter) => {
 
 }
 
+//FUNCION PARA COMPARAR LOS BOTONES 
 const changeNameBtn1 = (btn1, count) => {
-
-    // BTN1 === BTN1
-    // if(btn1 == arrayCharacterText[numberRandom]){
-    //     if(arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) <= 5){
-    //         numberRandom = arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) + count;
-    //     }else{
-    //         numberRandom = arrayCharacterText.indexOf(arrayCharacterText[numberRandom]) - count;
-    //     }
-    // }
 
     // BTN 1 === BTN 2
     if(btn1 == arrayCharacterText[numberRandomText]){
@@ -201,6 +197,7 @@ const changeNameBtn4 = (btn4, count) => {
 
 }
 
+
 const changeAndEnd = () => {
 
     if(originalCharacterArray.length > 0) {
@@ -235,6 +232,7 @@ const drawFinalComparation = () => {
 }
 
 const comparationsBtns = () => {
+
     while( (randomCharacterModif == arrayCharacterText[numberRandomText]) || (randomCharacterModif == arrayCharacterText[numberRandomText1]) ||  (randomCharacterModif == arrayCharacterText[numberRandomText2]) ){
         changeNameBtn1(randomCharacterModif,1);
     }
@@ -249,12 +247,12 @@ const comparationsBtns = () => {
     }
 }
 
+
 const endOtherBtns = () => {
     //btn2
     if( (arrayCharacterText[numberRandomText] == arrayCharacterText[numberRandomText1]) ||  (arrayCharacterText[numberRandomText] == arrayCharacterText[numberRandomText2])  ){
         numberRandomText = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) + 2;
         comparationsBtns();
-
     }
 
     //btn3
@@ -271,101 +269,42 @@ const endOtherBtns = () => {
 
 }
 
+const htmlStructButtons = ( btnIdDone, doneText, btnIdFirstFail, firstText, btnIdSecondFail, secondText, btnIdThridFail, thirdText ) => {
+
+    return (`
+            <div class="grid-item">
+                <a id="${btnIdDone}" class="grid-item-btn_subtitle">${doneText}</a>
+            </div>
+            <div class="grid-item">
+                <a id="${btnIdFirstFail}" class="grid-item-btn_subtitle">${firstText}</a>
+            </div>
+            <div class="grid-item">
+                <a id="${btnIdSecondFail}" class="grid-item-btn_subtitle">${secondText}</a>
+            </div>
+            <div class="grid-item">
+                <a id="${btnIdThridFail}" class="grid-item-btn_subtitle">${thirdText}</a>
+            </div>
+            <div class="grid-item">
+                <div class="grid-item-textImg">
+                    <h4 class="restanteText">Remaining images: ${originalCharacterArray.length}</a>
+                </div>
+            </div>
+        </div>
+        `);
+
+}
+
 const HtmlPart = (opc) => {
 
     switch (opc) {
         case 1:
-            return (`
-    
-                <div class="grid-item">
-                    <a id="btnDone" class="grid-item-btn_subtitle">${randomCharacterModif}</a>
-                </div>
-                <div class="grid-item">
-                    <a id="btnFail1" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText]}</a>
-                </div>
-                <div class="grid-item">
-                    <a id="btnFail2" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText1]}</a>
-                </div>
-                <div class="grid-item">
-                    <a id="btnFail3" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText2]}</a>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-textImg">
-                        <h4 class="restanteText">Remaining images: ${originalCharacterArray.length}</a>
-                    </div>
-                </div>
-            </div>
-            `);
-
+            return htmlStructButtons('btnDone', randomCharacterModif, 'btnFail1', arrayCharacterText[numberRandomText], 'btnFail2', arrayCharacterText[numberRandomText1], 'btnFail3', arrayCharacterText[numberRandomText2]);
         case 2:
-            return (`
-    
-                <div class="grid-item">               
-                    <a id="btnFail1" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText2]}</a>
-                </div>
-                <div class="grid-item">               
-                    <a id="btnDone" class="grid-item-btn_subtitle">${randomCharacterModif}</a>
-                </div>
-                <div class="grid-item">               
-                    <a id="btnFail2" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText]}</a>
-                </div>
-                <div class="grid-item">               
-                    <a id="btnFail3" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText1]}</a>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-textImg">
-                        <h4 class="restanteText">Remaining images: ${originalCharacterArray.length}</a>
-                    </div>
-                </div>
-            </div>
-            `);
-
+            return htmlStructButtons('btnFail1', arrayCharacterText[numberRandomText2], 'btnDone', randomCharacterModif, 'btnFail2', arrayCharacterText[numberRandomText], 'btnFail3', arrayCharacterText[numberRandomText1]);
         case 3:
-            return (`
-    
-                <div class="grid-item">                    
-                    <a id="btnFail1" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText1]}</a>
-                </div>
-                <div class="grid-item">                    
-                    <a id="btnFail2" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText]}</a>
-                </div>
-                <div class="grid-item">                    
-                    <a id="btnDone" class="grid-item-btn_subtitle">${randomCharacterModif}</a>
-                </div>
-                <div class="grid-item">                    
-                    <a id="btnFail3" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText2]}</a>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-textImg">
-                        <h4 class="restanteText">Remaining images: ${originalCharacterArray.length}</a>
-                    </div>
-                </div>
-            </div>
-            `);
-            
+            return htmlStructButtons('btnFail1', arrayCharacterText[numberRandomText1], 'btnFail2', arrayCharacterText[numberRandomText], 'btnDone', randomCharacterModif, 'btnFail3', arrayCharacterText[numberRandomText2]);
         case 4:
-            return (`
-    
-                <div class="grid-item">                    
-                    <a id="btnFail1" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText]}</a>
-                </div>
-                <div class="grid-item">                    
-                    <a id="btnFail2" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText2]}</a>
-                </div>
-                <div class="grid-item">                    
-                    <a id="btnFail3" class="grid-item-btn_subtitle">${arrayCharacterText[numberRandomText1]}</a>
-                </div>
-                <div class="grid-item">                    
-                    <a id="btnDone" class="grid-item-btn_subtitle">${randomCharacterModif}</a>
-                </div>
-                <div class="grid-item">
-                    <div class="grid-item-textImg">
-                        <h4 class="restanteText">Remaining images: ${originalCharacterArray.length}</a>
-                    </div>
-                </div>
-            </div>
-            `);
-    
+            return htmlStructButtons('btnFail1', arrayCharacterText[numberRandomText], 'btnFail2', arrayCharacterText[numberRandomText2], 'btnFail3', arrayCharacterText[numberRandomText1], 'btnDone', randomCharacterModif);
         default:
             break;
     }
@@ -406,7 +345,6 @@ const drawPreFinal = (scoreFinal) => {
 const drawpageFooter = (scoreFinal) => {
 
     divContent.innerHTML = '';
-
     const containerFinal = document.createElement('div');
 
     const drawFinalHTML = `
@@ -433,7 +371,6 @@ const draw = datita => {
 
     circleLoader.style.display = 'none';
     divContent.innerHTML = '';
-
     const container = document.createElement('div');
 
     numberRandomText = Math.round(Math.random()*(arrayCharacterText.length-1))
@@ -452,21 +389,18 @@ const draw = datita => {
     if( !( ( (randomCharacterModif != arrayCharacterText[numberRandomText]) && (randomCharacterModif != arrayCharacterText[numberRandomText1]) &&  (randomCharacterModif != arrayCharacterText[numberRandomText2])) && ( (arrayCharacterText[numberRandomText1] != randomCharacterModif) && (arrayCharacterText[numberRandomText1] != arrayCharacterText[numberRandomText]) &&  (arrayCharacterText[numberRandomText1] != arrayCharacterText[numberRandomText2]) ) && ( (arrayCharacterText[numberRandomText1] != randomCharacterModif) && (arrayCharacterText[numberRandomText1] != arrayCharacterText[numberRandomText]) &&  (arrayCharacterText[numberRandomText1] != arrayCharacterText[numberRandomText2]) ) && ( (arrayCharacterText[numberRandomText2] != randomCharacterModif) && (arrayCharacterText[numberRandomText2] != arrayCharacterText[numberRandomText]) &&  (arrayCharacterText[numberRandomText2] != arrayCharacterText[numberRandomText1]) ) ) ){
         endOtherBtns();
     }else{
-        // console.log('TODOS SON DIFERENTES');
+        // console.log('all !=');
     }
-    
+   
     changeNameBtn1(randomCharacterModif,2);
 
     datita.forEach(comic => {
         urlChange = comic.thumbnail.path.replace('http','https');
-        console.log(comic.thumbnail.path);
-        console.log(urlChange);
-        console.log(`${urlChange}/portrait_incredible.${comic.thumbnail.extension}`);
         const comicHTML = `
         <div class="grid-container">
             <div class="grid-item">
                 <div class="grid-item-container">
-                    <h1 class="grid-item-container_title"> API MARVEL </h1>
+                    <h1 class="grid-item-container_title"> Select Hero </h1>
                 </div>
             </div>
             <div class="grid-item">
@@ -484,6 +418,27 @@ const draw = datita => {
     const btnFail1 = document.getElementById('btnFail1');
     const btnFail2 = document.getElementById('btnFail2');
     const btnFail3 = document.getElementById('btnFail3');
+
+    const optionsButtons = opt => {
+        opt.addEventListener('click', () => {
+            if(comp){
+                comp = false;
+                score += 0;
+                btnDone.style.background = 'rgb(27, 107, 47)';
+                opt.style.background = 'rgb(153, 30, 30)';
+                if(originalCharacterArray.length == 0 ){
+                    setTimeout( () => {
+                        drawFinalComparation();
+                    }, 1000);
+                }else{
+                    setTimeout( () => {
+                        Started();
+                        comp = true;
+                    },1000);
+                }
+            }
+        });
+    }
 
     btnDone.addEventListener('click', () => {
         if(comp){
@@ -503,61 +458,9 @@ const draw = datita => {
         }
     });
 
-    btnFail1.addEventListener('click', () => {
-        if(comp){
-            comp = false;
-            score += 0;
-            btnDone.style.background = 'rgb(27, 107, 47)';
-            btnFail1.style.background = 'rgb(153, 30, 30)';
-            if(originalCharacterArray.length == 0 ){
-                setTimeout( () => {
-                    drawFinalComparation();
-                }, 1000);
-            }else{
-                setTimeout( () => {
-                    Started();
-                    comp = true;
-                },1000);
-            }
-        }
-    });
+    optionsButtons(btnFail1);
+    optionsButtons(btnFail2);
+    optionsButtons(btnFail3);
 
-    btnFail2.addEventListener('click', () => {
-        if(comp){
-            comp = false;
-            score += 0;
-            btnDone.style.background = 'rgb(27, 107, 47)';
-            btnFail2.style.background = 'rgb(153, 30, 30)';
-            if(originalCharacterArray.length == 0 ){
-                setTimeout( () => {
-                    drawFinalComparation();
-                }, 1000);
-            }else{
-                setTimeout( () => {
-                    Started();
-                    comp = true;
-                },1000);
-            }
-        }
-    });
-
-    btnFail3.addEventListener('click', () => {
-        if(comp){
-            comp = false;
-            score += 0;
-            btnDone.style.background = 'rgb(27, 107, 47)';
-            btnFail3.style.background = 'rgb(153, 30, 30)';
-            if(originalCharacterArray.length == 0 ){
-                setTimeout( () => {
-                    drawFinalComparation();
-                }, 1000);
-            }else{
-                setTimeout( () => {
-                    Started();
-                    comp = true;
-                },1000);
-            }
-        }
-    });
 }
 
