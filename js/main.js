@@ -4,32 +4,16 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.warn('Error al tratar de registrar el sw', err))
 }
 
-const btnStarted = document.getElementById('btnGetStart');
-const mainContainerImg = document.getElementById('container_img-background');
-const circleLoader = document.getElementById('loading');
-const divContent = document.getElementById('myContent');
-const originalCharacterArray = ['captain%20marvel','thanos','black%20panther','spider-man','iron%20man','hulk','captain%20america','black%20widow','hawkeye','thor','aegis','ant-man'];
-const arrayCharacterText = ['captain_marvel', 'thanos', 'black_panther', 'spider-man','iron_man', 'hulk', 'captain_america', 'black_widow','hawkeye','thor','aegis','ant-man'];
+const   btnStarted = document.getElementById('btnGetStart'),
+        mainContainerImg = document.getElementById('container_img-background'),
+        circleLoader = document.getElementById('loading'),
+        divContent = document.getElementById('myContent'),
+        originalCharacterArray = ['captain%20marvel','thanos','black%20panther','spider-man','iron%20man','hulk','captain%20america','black%20widow','hawkeye','thor','aegis','ant-man'],
+        fakeArr = ['captain_marvel', 'thanos', 'black_panther', 'spider-man','iron_man', 'hulk', 'captain_america', 'black_widow','hawkeye','thor','aegis','ant-man'];
 
-let randomCharacter;
-let randomCharacterModif;
-let numberRandom;
-let numberRandomText;
-let numberRandomText1;
-let numberRandomText2;
-let numberRandomPosition;
-let opc;
-let score = 0;
-let comp = true;
-let msj;
-let btn_success;
-let btn_noSuccess;
-let cont;
-let urlChange;
-
-let btnIdDone, doneText, btnIdFirstFail, firstText, btnIdSecondFail, secondText, btnIdThridFail, thirdText;
-let firstArray, iArr, arrF, indFirstArr, arrS, indSecondArr, arrT, indThirdArr, count;
-
+let arrNameFr, indRandFr, arrModifNameFr,indRanSc, indRanTr, indRanFu,
+    numRandPosition, opc, score = 0, comp = true, msj,
+    btn_success, btn_noSuccess, urlChange;
 const hash = 'd8c654b1434acc7a69ba9127b61eb186';
 const apiKey = '666d359706b3037e653e838e0e52e226';
 
@@ -37,14 +21,13 @@ circleLoader.style.display = 'none';
 btnStarted.style.display = 'block';
 mainContainerImg.style.display = 'block';
 
-
 const Started = () => {
     btnStarted.style.display = 'none';
     mainContainerImg.style.display = 'none';
     circleLoader.style.display = 'block';
-    numberRandom = Math.round(Math.random()*(originalCharacterArray.length-1))
-    randomCharacter = originalCharacterArray[numberRandom];
-    loadComics(randomCharacter);
+    indRandFr = Math.round(Math.random()*(originalCharacterArray.length-1))
+    arrNameFr = originalCharacterArray[indRandFr];
+    loadComics(arrNameFr);
 }
 
 btnStarted.addEventListener('click', e => {
@@ -66,145 +49,49 @@ const loadComics = async (nameCharacter) => {
             break;
     }
 
-    if(originalCharacterArray[numberRandom] == randomCharacter){
-        originalCharacterArray.splice(originalCharacterArray.indexOf(randomCharacter),1);
+    if(originalCharacterArray[indRandFr] == arrNameFr){
+        originalCharacterArray.splice(originalCharacterArray.indexOf(arrNameFr),1);
     }
 
 }
 
-//FUNCION PARA COMPARAR LOS BOTONES 
-const changeNameBtn1 = (btn1, count) => {
+const nameChangeButtons = (mainName, nameSecond, nameThrid, nameFour, cont) => {
 
     // BTN 1 === BTN 2
-    if(btn1 == arrayCharacterText[numberRandomText]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) <= 5){
-            numberRandomText = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) + count;
+    if(mainName == nameSecond){
+        if(fakeArr.indexOf(nameSecond) >= 0 && fakeArr.indexOf(nameSecond) <= 5){
+            indRanSc = fakeArr.indexOf(nameSecond) + cont;
         }else{
-            numberRandomText = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) - count;
+            indRanSc = fakeArr.indexOf(nameSecond) - cont;
         }
     }
 
     // BTN 1 === BTN 3
-    if(btn1 == arrayCharacterText[numberRandomText1]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) <= 5 ){
-            numberRandomText1 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) + count;
+    if(mainName == nameThrid){
+        if(fakeArr.indexOf(nameThrid) >= 0 && fakeArr.indexOf(nameThrid) <= 5 ){
+            indRanTr = fakeArr.indexOf(nameThrid) + cont;
         }else{
-            numberRandomText1 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) - count;
+            indRanTr = fakeArr.indexOf(nameThrid) - cont;
         }
     }
 
     // BTN 1 === BTN 4
-    if(btn1 == arrayCharacterText[numberRandomText2]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) <= 5 ){
-            numberRandomText2 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) + count;
+    if(mainName == nameFour){
+        if(fakeArr.indexOf(nameFour) >= 0 && fakeArr.indexOf(nameFour) <= 5 ){
+            indRanFu = fakeArr.indexOf(nameFour) + cont;
         }else{
-            numberRandomText2 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) - count;
+            indRanFu = fakeArr.indexOf(nameFour) - cont;
         }
     }
-
 }
-
-const changeNameBtn2 = (btn2, count) => {
-
-    // BTN 2 === BTN 1
-    if(btn2 == randomCharacterModif){
-        if(arrayCharacterText.indexOf(randomCharacterModif) >= 0 && arrayCharacterText.indexOf(randomCharacterModif) <= 5){
-            numberRandomText = arrayCharacterText.indexOf(randomCharacterModif) + count;
-        }else{
-            numberRandomText = arrayCharacterText.indexOf(randomCharacterModif) - count;
-        }
-    }
-
-    // BTN 2 === BTN 3
-    if(btn2 == arrayCharacterText[numberRandomText1]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) <= 5 ){
-            numberRandomText1 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) + count;
-        }else{
-            numberRandomText1 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) - count;
-        }
-    }
-
-    // BTN 2 === BTN 4
-    if(btn2 == arrayCharacterText[numberRandomText2]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) <= 5 ){
-            numberRandomText2 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) + count;
-        }else{
-            numberRandomText2 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) - count;
-        }
-    }
-
-}
-
-const changeNameBtn3 = (btn3, count) => {
-
-    // BTN 3 === BTN 1
-    if(btn3 == randomCharacterModif){
-        if(arrayCharacterText.indexOf(randomCharacterModif) >= 0 && arrayCharacterText.indexOf(randomCharacterModif) <= 5 ){
-            numberRandomText1 = arrayCharacterText.indexOf(randomCharacterModif) + count;
-        }else{
-            numberRandomText1 = arrayCharacterText.indexOf(randomCharacterModif) - count;
-        }
-    }
-
-    // BTN 3 === BTN 2
-    if(btn3 == arrayCharacterText[numberRandomText]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) <= 5 ){
-            numberRandomText = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) + count;
-        }else{
-            numberRandomText = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) - count;
-        }
-    }
-
-    // BTN 3 === BTN 4
-    if(btn3 == arrayCharacterText[numberRandomText2]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) <= 5 ){
-            numberRandomText2 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) + count;
-        }else{
-            numberRandomText2 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText2]) - count;
-        }
-    }
-
-}
-
-const changeNameBtn4 = (btn4, count) => {
-
-    // BTN 4 === BTN 1
-    if(btn4 == randomCharacterModif){
-        if(arrayCharacterText.indexOf(randomCharacterModif) >= 0 && arrayCharacterText.indexOf(randomCharacterModif) <= 5 ){
-            numberRandomText2 = arrayCharacterText.indexOf(randomCharacterModif) + count;
-        }else{
-            numberRandomText2 = arrayCharacterText.indexOf(randomCharacterModif) - count;
-        }
-    }
-
-    // BTN 4 === BTN 2
-    if(btn4 == arrayCharacterText[numberRandomText]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) <= 5 ){
-            numberRandomText = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) + count;
-        }else{
-            numberRandomText = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) - count;
-        }
-    }
-
-    // BTN 4 === BTN 3
-    if(btn4 == arrayCharacterText[numberRandomText1]){
-        if(arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) >= 0 && arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) <= 5 ){
-            numberRandomText1 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) + count;
-        }else{
-            numberRandomText1 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText1]) - count;
-        }
-    }
-
-}
-
 
 const changeAndEnd = () => {
 
     if(originalCharacterArray.length > 0) {
-        if(randomCharacter.includes('%20')){
-            randomCharacterModif = randomCharacter.replace("%20","_");
+        if(arrNameFr.includes('%20')){
+            arrModifNameFr = arrNameFr.replace("%20","_");
         }else{
-            randomCharacterModif = randomCharacter;
+            arrModifNameFr = arrNameFr;
         }
     }
 
@@ -233,37 +120,37 @@ const drawFinalComparation = () => {
 
 const comparationsBtns = () => {
 
-    while( (randomCharacterModif == arrayCharacterText[numberRandomText]) || (randomCharacterModif == arrayCharacterText[numberRandomText1]) ||  (randomCharacterModif == arrayCharacterText[numberRandomText2]) ){
-        changeNameBtn1(randomCharacterModif,1);
+    while( (arrModifNameFr == fakeArr[indRanSc]) || (arrModifNameFr == fakeArr[indRanTr]) ||  (arrModifNameFr == fakeArr[indRanFu]) ){
+        nameChangeButtons(arrModifNameFr, fakeArr[indRanSc], fakeArr[indRanTr], fakeArr[indRanFu], 1)
     }
-    while( (arrayCharacterText[numberRandomText] == randomCharacterModif) || (arrayCharacterText[numberRandomText] == arrayCharacterText[numberRandomText1]) ||  (arrayCharacterText[numberRandomText] == arrayCharacterText[numberRandomText2]) ){
-        changeNameBtn2(arrayCharacterText[numberRandomText],1);
+    while( (fakeArr[indRanSc] == arrModifNameFr) || (fakeArr[indRanSc] == fakeArr[indRanTr]) ||  (fakeArr[indRanSc] == fakeArr[indRanFu]) ){
+        nameChangeButtons(fakeArr[indRanSc], arrModifNameFr, fakeArr[indRanTr], fakeArr[indRanFu], 1)
     }
-    while( (arrayCharacterText[numberRandomText1] == randomCharacterModif) || (arrayCharacterText[numberRandomText1] == arrayCharacterText[numberRandomText]) ||  (arrayCharacterText[numberRandomText1] == arrayCharacterText[numberRandomText2]) ){
-        changeNameBtn3(arrayCharacterText[numberRandomText1],1);
+    while( (fakeArr[indRanTr] == arrModifNameFr) || (fakeArr[indRanTr] == fakeArr[indRanSc]) ||  (fakeArr[indRanTr] == fakeArr[indRanFu]) ){
+        nameChangeButtons(fakeArr[indRanTr], fakeArr[indRanSc], arrModifNameFr, fakeArr[indRanFu], 1)
     }
-    while( (arrayCharacterText[numberRandomText2] == randomCharacterModif) || (arrayCharacterText[numberRandomText2] == arrayCharacterText[numberRandomText]) ||  (arrayCharacterText[numberRandomText2] == arrayCharacterText[numberRandomText1]) ){
-        changeNameBtn4(arrayCharacterText[numberRandomText2],1);
+    while( (fakeArr[indRanFu] == arrModifNameFr) || (fakeArr[indRanFu] == fakeArr[indRanSc]) ||  (fakeArr[indRanFu] == fakeArr[indRanTr]) ){
+        nameChangeButtons(fakeArr[indRanFu], fakeArr[indRanSc], fakeArr[indRanTr], arrModifNameFr, 1)
     }
 }
 
 
 const endOtherBtns = () => {
     //btn2
-    if( (arrayCharacterText[numberRandomText] == arrayCharacterText[numberRandomText1]) ||  (arrayCharacterText[numberRandomText] == arrayCharacterText[numberRandomText2])  ){
-        numberRandomText = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) + 2;
+    if( (fakeArr[indRanSc] == fakeArr[indRanTr]) ||  (fakeArr[indRanSc] == fakeArr[indRanFu])  ){
+        indRanSc = fakeArr.indexOf(fakeArr[indRanSc]) + 2;
         comparationsBtns();
     }
 
     //btn3
-    if( (arrayCharacterText[numberRandomText1] == arrayCharacterText[numberRandomText]) || (arrayCharacterText[numberRandomText1] == arrayCharacterText[numberRandomText2]) ){
-        numberRandomText1 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) - 2;
+    if( (fakeArr[indRanTr] == fakeArr[indRanSc]) || (fakeArr[indRanTr] == fakeArr[indRanFu]) ){
+        indRanTr = fakeArr.indexOf(fakeArr[indRanSc]) - 2;
         comparationsBtns();
     }
     
     //btn4
-    if( (arrayCharacterText[numberRandomText2] == arrayCharacterText[numberRandomText]) || (arrayCharacterText[numberRandomText2] == arrayCharacterText[numberRandomText1]) ){
-        numberRandomText2 = arrayCharacterText.indexOf(arrayCharacterText[numberRandomText]) - 1;
+    if( (fakeArr[indRanFu] == fakeArr[indRanSc]) || (fakeArr[indRanFu] == fakeArr[indRanTr]) ){
+        indRanFu = fakeArr.indexOf(fakeArr[indRanSc]) - 1;
         comparationsBtns();
     }
 
@@ -298,13 +185,13 @@ const HtmlPart = (opc) => {
 
     switch (opc) {
         case 1:
-            return htmlStructButtons('btnDone', randomCharacterModif, 'btnFail1', arrayCharacterText[numberRandomText], 'btnFail2', arrayCharacterText[numberRandomText1], 'btnFail3', arrayCharacterText[numberRandomText2]);
+            return htmlStructButtons('btnDone', arrModifNameFr, 'btnFail1', fakeArr[indRanSc], 'btnFail2', fakeArr[indRanTr], 'btnFail3', fakeArr[indRanFu]);
         case 2:
-            return htmlStructButtons('btnFail1', arrayCharacterText[numberRandomText2], 'btnDone', randomCharacterModif, 'btnFail2', arrayCharacterText[numberRandomText], 'btnFail3', arrayCharacterText[numberRandomText1]);
+            return htmlStructButtons('btnFail1', fakeArr[indRanFu], 'btnDone', arrModifNameFr, 'btnFail2', fakeArr[indRanSc], 'btnFail3', fakeArr[indRanTr]);
         case 3:
-            return htmlStructButtons('btnFail1', arrayCharacterText[numberRandomText1], 'btnFail2', arrayCharacterText[numberRandomText], 'btnDone', randomCharacterModif, 'btnFail3', arrayCharacterText[numberRandomText2]);
+            return htmlStructButtons('btnFail1', fakeArr[indRanTr], 'btnFail2', fakeArr[indRanSc], 'btnDone', arrModifNameFr, 'btnFail3', fakeArr[indRanFu]);
         case 4:
-            return htmlStructButtons('btnFail1', arrayCharacterText[numberRandomText], 'btnFail2', arrayCharacterText[numberRandomText2], 'btnFail3', arrayCharacterText[numberRandomText1], 'btnDone', randomCharacterModif);
+            return htmlStructButtons('btnFail1', fakeArr[indRanSc], 'btnFail2', fakeArr[indRanFu], 'btnFail3', fakeArr[indRanTr], 'btnDone', arrModifNameFr);
         default:
             break;
     }
@@ -325,7 +212,7 @@ const drawPreFinal = (scoreFinal) => {
     const drawPreHTML = `
     <div class="container_confirmation">
         <div class="container_confirmation-top">
-            <h3 class="container_confirmation-top__text">Final Score: ${scoreFinal} of ${arrayCharacterText.length}</h3>
+            <h3 class="container_confirmation-top__text">Final Score: ${scoreFinal} of ${fakeArr.length}</h3>
             <h3 class="container_confirmation-top__msj">${msj}</h3>
         </div>
         <div class="container_confirmation-bottom">
@@ -373,26 +260,26 @@ const draw = datita => {
     divContent.innerHTML = '';
     const container = document.createElement('div');
 
-    numberRandomText = Math.round(Math.random()*(arrayCharacterText.length-1))
-    numberRandomText1 = Math.round(Math.random()*(arrayCharacterText.length-1))
-    numberRandomText2 = Math.round(Math.random()*(arrayCharacterText.length-1))
-    numberRandomPosition = Math.round(Math.random()*4);
+    indRanSc = Math.round(Math.random()*(fakeArr.length-1))
+    indRanTr = Math.round(Math.random()*(fakeArr.length-1))
+    indRanFu = Math.round(Math.random()*(fakeArr.length-1))
+    numRandPosition = Math.round(Math.random()*4);
 
-    if(numberRandomPosition == 0){
-        numberRandomPosition = 3;
+    if(numRandPosition == 0){
+        numRandPosition = 3;
     }
     
     changeAndEnd();
 
     comparationsBtns();
 
-    if( !( ( (randomCharacterModif != arrayCharacterText[numberRandomText]) && (randomCharacterModif != arrayCharacterText[numberRandomText1]) &&  (randomCharacterModif != arrayCharacterText[numberRandomText2])) && ( (arrayCharacterText[numberRandomText1] != randomCharacterModif) && (arrayCharacterText[numberRandomText1] != arrayCharacterText[numberRandomText]) &&  (arrayCharacterText[numberRandomText1] != arrayCharacterText[numberRandomText2]) ) && ( (arrayCharacterText[numberRandomText1] != randomCharacterModif) && (arrayCharacterText[numberRandomText1] != arrayCharacterText[numberRandomText]) &&  (arrayCharacterText[numberRandomText1] != arrayCharacterText[numberRandomText2]) ) && ( (arrayCharacterText[numberRandomText2] != randomCharacterModif) && (arrayCharacterText[numberRandomText2] != arrayCharacterText[numberRandomText]) &&  (arrayCharacterText[numberRandomText2] != arrayCharacterText[numberRandomText1]) ) ) ){
+    if( !( ( (arrModifNameFr != fakeArr[indRanSc]) && (arrModifNameFr != fakeArr[indRanTr]) &&  (arrModifNameFr != fakeArr[indRanFu])) && ( (fakeArr[indRanTr] != arrModifNameFr) && (fakeArr[indRanTr] != fakeArr[indRanSc]) &&  (fakeArr[indRanTr] != fakeArr[indRanFu]) ) && ( (fakeArr[indRanTr] != arrModifNameFr) && (fakeArr[indRanTr] != fakeArr[indRanSc]) &&  (fakeArr[indRanTr] != fakeArr[indRanFu]) ) && ( (fakeArr[indRanFu] != arrModifNameFr) && (fakeArr[indRanFu] != fakeArr[indRanSc]) &&  (fakeArr[indRanFu] != fakeArr[indRanTr]) ) ) ){
         endOtherBtns();
     }else{
         // console.log('all !=');
     }
    
-    changeNameBtn1(randomCharacterModif,2);
+    nameChangeButtons(arrModifNameFr, fakeArr[indRanSc], fakeArr[indRanTr], fakeArr[indRanFu], 2)
 
     datita.forEach(comic => {
         urlChange = comic.thumbnail.path.replace('http','https');
@@ -400,32 +287,34 @@ const draw = datita => {
         <div class="grid-container">
             <div class="grid-item">
                 <div class="grid-item-container">
-                    <h1 class="grid-item-container_title"> Select Hero </h1>
+                    <h1 class="grid-item-container_title"> ¿ WHO IS ? </h1>
                 </div>
             </div>
             <div class="grid-item">
                 <img class="img_person" src="${urlChange}/portrait_incredible.${comic.thumbnail.extension}" alt="${comic.name}">
             </div>
             `
-        const comicHTMLPart = HtmlPart(numberRandomPosition);
+        const comicHTMLPart = HtmlPart(numRandPosition);
 
         container.insertAdjacentHTML('beforeend', comicHTML + comicHTMLPart) 
     });
 
     divContent.appendChild(container);
 
-    const btnDone = document.getElementById('btnDone');
-    const btnFail1 = document.getElementById('btnFail1');
-    const btnFail2 = document.getElementById('btnFail2');
-    const btnFail3 = document.getElementById('btnFail3');
+    const   btnDone = document.getElementById('btnDone'),
+            btnFail1 = document.getElementById('btnFail1'),
+            btnFail2 = document.getElementById('btnFail2'),
+            btnFail3 = document.getElementById('btnFail3');
 
-    const optionsButtons = opt => {
+    const optionsButtons = (opt, valid, punt) => {
         opt.addEventListener('click', () => {
             if(comp){
                 comp = false;
-                score += 0;
+                score += punt;
                 btnDone.style.background = 'rgb(27, 107, 47)';
-                opt.style.background = 'rgb(153, 30, 30)';
+                if(valid == 1 || valid == 2 || valid == 3){
+                    opt.style.background = 'rgb(153, 30, 30)';
+                }
                 if(originalCharacterArray.length == 0 ){
                     setTimeout( () => {
                         drawFinalComparation();
@@ -440,27 +329,10 @@ const draw = datita => {
         });
     }
 
-    btnDone.addEventListener('click', () => {
-        if(comp){
-            comp = false;
-            score += 1;
-            btnDone.style.background = 'rgb(27, 107, 47)';
-            if(originalCharacterArray.length == 0 ){
-                setTimeout( () => {
-                    drawFinalComparation();
-                }, 1000);
-            }else{
-                setTimeout( () => {
-                    Started();
-                    comp = true;
-                },1000);
-            }
-        }
-    });
-
-    optionsButtons(btnFail1);
-    optionsButtons(btnFail2);
-    optionsButtons(btnFail3);
+    optionsButtons(btnDone, 0, 1);
+    optionsButtons(btnFail1, 1, 0);
+    optionsButtons(btnFail2, 2, 0);
+    optionsButtons(btnFail3, 3, 0);
 
 }
 
