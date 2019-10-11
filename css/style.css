@@ -8,6 +8,8 @@
     margin: 0;
     padding: 0;
     --c-font: rgba(230, 222, 232, 1);
+    --c-opc-done: rgb(8, 128, 38);
+    --c-opc-fail: rgb(253, 0, 0);
 }
 
 body {
@@ -70,7 +72,7 @@ body {
     width: 40px;
     height: 40px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 1s linear infinite;
+    animation: spin 1s linear normal;
     position: absolute;
     top: 50%;
     left: 48.5%;
@@ -85,6 +87,7 @@ body {
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(24, 1fr);
     background: rgb(102, 101, 101);
+    flex-direction: column;
 }
 
 /* HIJO DEL CONTENEDOR PRINCIPAL */
@@ -118,6 +121,7 @@ body {
 
 /* IMAGEN */
 .grid-item:nth-child(2){
+    position: relative;
     content: '';
     grid-column: 2 / span 10;
     grid-row: 6 / span 8;
@@ -128,7 +132,35 @@ body {
     object-fit: contain;
     width: 100%;
     height: 100%;
+    display: block;
  }
+
+/* CONTENEDOR DEL EFECTO */
+.container_effect{
+    position: absolute;
+    top: 100%;
+    height: 80%;
+    left: 50%;
+    display: flex;
+    /* align-content: center; */
+    transform: translate(-50%, -50%);
+}
+
+/* EFECTO DE OPCIONES */
+.effect_options{
+    animation: expander 0.8s linear forwards;
+    font-weight: bold;
+}
+
+/* EFECTO DONE */
+.effect__done{
+    color: var(--c-opc-done);
+}
+
+/* EFECTO FAIL */
+.effect__fail{
+    color: var(--c-opc-fail);
+}
 
 /* BOTON 1 */
 .grid-item:nth-child(3){
@@ -351,6 +383,11 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@keyframes expander{
+    0% { transform: scale(1); }
+    100% { transform: scale(1.5); }    
 }
 
 /* MEDIA QUERIES */

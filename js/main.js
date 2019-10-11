@@ -12,7 +12,7 @@ const   btnStarted = document.getElementById('btnGetStart'),
         fakeArr = ['captain_marvel', 'thanos', 'black_panther', 'spider-man','iron_man', 'hulk', 'captain_america', 'black_widow','hawkeye','thor','aegis','ant-man'];
 
 let arrNameFr, indRandFr, arrModifNameFr,indRanSc, indRanTr, indRanFu,
-    numRandPosition, opc, score = 0, comp = true, msj,
+    numRandPosition, opc, score = 0, comp = true, msj, main__effect,
     btn_success, btn_noSuccess, urlChange;
 const hash = 'd8c654b1434acc7a69ba9127b61eb186';
 const apiKey = '666d359706b3037e653e838e0e52e226';
@@ -292,6 +292,9 @@ const draw = datita => {
             </div>
             <div class="grid-item">
                 <img class="img_person" src="${urlChange}/portrait_incredible.${comic.thumbnail.extension}" alt="${comic.name}">
+                <div id="main_container_effect" class="container_effect">
+
+                </div>
             </div>
             `
         const comicHTMLPart = HtmlPart(numRandPosition);
@@ -305,6 +308,17 @@ const draw = datita => {
             btnFail1 = document.getElementById('btnFail1'),
             btnFail2 = document.getElementById('btnFail2'),
             btnFail3 = document.getElementById('btnFail3');
+            main__effect = document.getElementById('main_container_effect');
+
+    const changeEfect = (content, nameClass) => {
+        
+        let h3 = document.createElement("h3");
+        h3.innerHTML = `${content}`
+        h3.setAttribute('class', `effect_options ${nameClass}`)
+        let base = main__effect.appendChild(h3);
+        return base;
+
+    }
 
     const optionsButtons = (opt, valid, punt) => {
         opt.addEventListener('click', () => {
@@ -312,8 +326,12 @@ const draw = datita => {
                 comp = false;
                 score += punt;
                 btnDone.style.background = 'rgb(27, 107, 47)';
+                
                 if(valid == 1 || valid == 2 || valid == 3){
+                    changeEfect('INCORRECT', 'effect__fail')
                     opt.style.background = 'rgb(153, 30, 30)';
+                }else{
+                    changeEfect('CORRECT', 'effect__done')
                 }
                 if(originalCharacterArray.length == 0 ){
                     setTimeout( () => {
